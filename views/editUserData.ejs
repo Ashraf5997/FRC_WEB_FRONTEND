@@ -1,0 +1,128 @@
+
+<!--HEDER  START-->
+
+<!--HEDER  END-->
+<html lang="en">
+    <head>
+      <title>SIGN_IN</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+      
+      <!--SWEET ALERT-->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <!--JQUERY-->
+
+      <!--ICON-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css">
+      <link href="https://stackpath.bootstrapcdn.com/.../font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
+      crossorigin="anonymous">
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <!--######   JAVASCRIPT CODE  START   ######-->
+   </head>
+   
+   <script>
+        $(document).ready(function(){
+
+         $("#updateForm").submit(function(e){
+            e.preventDefault;
+         $.ajax({
+                type: "POST",
+                url: "/updateData"  ,
+                data: $("#updateForm").serialize() ,// form.serialize(), // serializes the form's elements.
+                'success': function(data)
+                {  
+                  //alert("datata"+data);
+                       /*  Swal.fire({
+                            icon: 'success',
+                            title: 'SUCCESS',
+                            text: 'Data updated successfully!',
+                            footer: '<h6><a href="/adminUser">Pdsd .</a></h6>'
+                          })*/
+                  window.location.href="/adminUser";
+
+                },
+                'error':function(error){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'INVALID PINCODEss',
+                        text: 'Please try with another  .',
+                        
+                    })
+               }     
+           }); 
+   })
+
+})
+   </script> 
+
+   <body>
+<div style="background-color: orange;height:45;"></div>
+    <div class="jumbotron">
+       <div style="width: 600px;" class="container">
+                <h3>EDIT USER </h3>       
+          <!-- DISPLAYING ERROR MESSAGE-->
+         <% if(ErrMessage != 0) { %>
+            <div style="font-size:15px;text-align: center;" class="alert alert-danger" role="alert">
+                <%- ErrMessage %>
+            </div>
+            <% } %>
+           <br>
+           <hr>
+           <% if( userData != 0){ %>
+        <form  id="updateForm" method="POST" action="#">
+            <div class="form-group">
+              <label for="formGroupExampleInput">FULL NAME</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" name="username" value="<%-userData.username %>" placeholder="enter name">
+            </div>
+            <div class="form-group">
+               
+                <input type="hidden" class="form-control" id="formGroupExampleInput" name="id" value="<%-userData.id %>" placeholder="enter UserId">
+              </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Email</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2" name="useremail" value="<%-userData.useremail %>" placeholder="enter email">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">PASSWORD</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="userpassword" value="<%-userData.userpassword %>" placeholder="enter password">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">PIN CODE</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" name="pincode" value="<%-userData.pincode %>" placeholder="enter pincode">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">BLOCK</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="block" value="<%-userData.block %>" placeholder="enter block">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">DISTRICT</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2"name="district" value="<%-userData.district %>" placeholder="enter district">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">STATE</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="state" value="<%-userData.state %>" placeholder="enter state">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">COUNTRY</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" name="country" value="<%-userData.country %>" placeholder="enter country">
+              </div>
+
+              <button type="submit"   class="btn btn-warning"  >SAVE UPDATE</button>
+              <button type="button"   class="btn btn-warning"><a  href="/adminUser">BACK</a></button>
+              
+          </form>
+          <% }%>
+       </div>
+    </div>
+
+   </body>
+</html>

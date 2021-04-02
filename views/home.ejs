@@ -1,0 +1,116 @@
+
+
+<!--HEDER  START-->
+<%- include('header') %>
+<!--HEDER  END-->
+<html lang="en">
+    <head>
+      <title>HOME PAGE</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+
+    </head>
+
+     <style>
+      .h1{
+         color:orange;
+         text-align: center;
+         padding-top:40px;
+         font-weight: bold;
+      }
+     </style>
+    <body>
+       <!-- DISPLAYING ERROR MESSAGE-->
+       <% if(Error_message != 0) { %>
+        <div style="font-size:15px;text-align: center;" class="alert alert-danger" role="alert">
+         <%- Error_message %>
+        </div>
+        <% } %>
+
+      <h6 class="h1">
+       FRC
+      </h6>
+      <h6 style="text-align: center;">FRESHER RESUME CREATER</h6>
+      <p style="text-align: center;color:orange;font-size:25px;text-decoration: underline;">A best plateform to create your resume in very short time </p>
+      <div class="container">
+        <p style="text-align: center;padding:20px">
+          What is Lorem Ipsum?
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has 
+          been the industry's
+           standard dummy text ever since the 1500s, 
+          Lorem Ipsum has been the industry  Lorem Ipsum is simply dummy text of the printing and 
+          typesetting industry.
+           Lorem Ipsum has been the industry 
+           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+           Lorem Ipsum has been the industry  Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry
+            </p>
+         
+      </div>
+     
+        <div style="align-items: center;" class="card">
+          <h5 class="card-header">OUR SERVICE</h5>
+          <div class ="container">
+            <div class="row">
+              <div class="col" style="align-items: center;">
+                <div class="card mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="Images/pic10.png" alt="NO IMAGES" style="width: 250px;">
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h5 class="card-title">OUR USERS </h5>
+                        <p class="card-text">Many users have registerd from different states  </p>
+                     
+                        <a href="/users" class="btn btn-outline-warning">OUR USERS</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+            
+              <div class="col" style="align-items: center;">
+                <div class="card mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="Images/pic13.jpeg" alt="NO IMAGES" style="width: 200px;">
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h5 class="card-title">BUILD & DOWNLOAD</h5>
+                        <p class="card-text">create and download pdf of your resume  </p>
+                        <a href="/sign-in" class="btn btn-outline-primary">lets start</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+           
+           
+          </div>
+        
+        
+        </div><br>
+
+
+    </body>
+</html>
+
+
+
+
+
+<!--FOOTER  START-->
+<%- include('footer') %>
+
+<!--FOOTER  END-->

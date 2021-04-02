@@ -1,0 +1,220 @@
+
+<!--HEDER  START-->
+<%- include('header')%>
+
+
+<!--HEDER  END-->
+<html lang="en">
+    <head>
+      <title>OUR USERS</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+      <%- include('modal') %>
+    
+     <!---- <script src="--
+      https://code.jquery.com/jquery-3.5.1.js
+      "></script>-->
+     <!--SWEET ALERT-->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+     <!--JQUERY-->
+
+      <script src=" https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js "></script>
+      <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js "></script>
+      <script src="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></script>
+
+      <!--agdagdfhad-->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+      </script>
+      <!--jhadhjvd-->
+        <script>
+
+          let USERID;
+          const select=(id)=>
+          {
+              USERID =id;
+              alert("Hi UserID : "+ USERID+" is selected");
+              $("#delete").show();
+              $("#edit").show();
+          }
+
+      const Delete=(USERID)=>{
+         
+          Swal.fire({
+                title: 'ARE YOU SURE?',
+                text: " Data  will delete from data base?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes delete it.'
+              }).then((result) => {
+               
+                 if(result.value){
+                  $.ajax({
+                      type: "delete",
+                      url: "/delete/"+USERID,
+                      data: "",// $("#pincodeForm").serialize() ,// form.serialize(), // serializes the form's elements.
+                      'success': function(data)
+                      {  
+                        Swal.fire({
+                             title: 'Deleted!',
+                             text:  'Data has been deleted.',
+                              icon: 'success'
+                             }).then((data)=>{
+                              location.reload();
+                             })
+                    // 
+
+                      },
+                      'error':function(error){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Please try with another  .',
+                            })
+                      }      
+                   });
+               }
+                
+               /* if (result.isConfirmed) {
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }*/
+       })
+
+ }
+
+
+
+  $(document).ready(function () {
+      
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+  
+ 
+
+  });
+
+ /* const Edit=(uid)=>{
+       window.location.href="/edit/uid";
+  }*/
+        
+      </script>
+    </head>
+    <style>
+      .pagination {
+        display: inline-block;
+      }
+      
+      .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+      }
+      
+      .pagination a.active {
+        background-color: #476fdd;
+        color: white;
+      }
+      
+      .pagination a:hover:not(.active) {background-color: #ddd;}
+
+      #row:hover{
+        background-color: rgb(219, 221, 221);
+      }
+
+    
+      </style>
+    <body>
+      <div class="container">
+       <h3 style="text-align: center;text-decoration: underline;">WELCOME TO ADMIN AREA</h3>
+       <ul style="list-style: none; float:right;padding-right: 80px;">
+         <li>NAME : <%- userData.username %> </li>
+         <li>EMAIL : <%- userData.useremail %> </li>
+         <li>USER TYPE : Admin user </li>
+       </ul>
+     
+     <p style="text-align:left;text-decoration: underline;">LIST OF TOTAL USERS <%- ourusers.length %> </p>
+      <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      
+        <thead>
+          <tr>
+            <th class="th-sm">#S.No</th>
+            <th class="th-sm">User ID</th>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Email</th>
+            <th class="th-sm">Pincode</th>
+            <th class="th-sm">Block </th>
+            <th class="th-sm">District</th>
+            <th class="th-sm">State </th>
+            <th class="th-sm">Country </th>
+            <th class="th-sm">EDIT </th>
+            <th class="th-sm">DELETE </th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          <% for(let i= 0 ; i < ourusers.length; i++ ){%>
+
+            <tr id="row" >
+                  <td><%- i+1 %></td>
+                  <td><%- ourusers[i].id%></td>
+                  <td><%- ourusers[i].username %></td>
+                  <td><%- ourusers[i].useremail %></td>
+                  <td><%- ourusers[i].pincode %></td>
+                  <td><%- ourusers[i].block %></td>
+                  <td><%- ourusers[i].district %></td>
+                  <td><%- ourusers[i].state %></td>
+                  <td><%- ourusers[i].country %></td>
+                  <td>
+                    <form method="post" action="/edit">
+                      <input  type="hidden" name="uid" value="<%- ourusers[i].id%>">
+                      <button type="submit">EDIT</button>
+                    </form>
+                  </td>
+                 <!-- <td><input type="text" name="uid" value="<%- ourusers[i].id%>"></td>-->
+                 <!--<td><button onclick="Edit( <%- ourusers[i].id %>)">EDIT</button></td>-->
+                  <td><button onclick="Delete( <%- ourusers[i].id %>)">DELETE</button></td>
+
+            </tr>
+          <% } %>
+        
+        
+      </tbody>
+        <tfoot>
+          <tr>
+
+           
+          
+           
+          </tr>
+        </tfoot>
+
+      </table>
+      </div>
+
+
+
+
+    </body>
+</html>
+
+
+
+
+
+<!--FOOTER  START-->
+<%- include('footer') %>
+
+<!--FOOTER  END-->

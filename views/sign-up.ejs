@@ -1,0 +1,627 @@
+
+<!--HEDER  START-->
+<%- include('header') %>
+<!--HEDER  END-->
+<html lang="en">
+    <head>
+      <title>SIGN_IN</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+      
+      <!--SWEET ALERT-->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <!--JQUERY-->
+
+      <!--ICON-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css">
+      <link href="https://stackpath.bootstrapcdn.com/.../font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
+      crossorigin="anonymous">
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <!--######   JAVASCRIPT CODE  START   ######-->
+   <script>
+  var password ,count=0, saveBtnActive=false ;
+  
+///  PASSWORD VALIDATION
+const passwordStrength =()=>{
+  password  =  document.getElementById("password");  
+
+  var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+  if(strongRegex.test(password.value))
+  {
+      document.getElementById("passwordStatus").innerHTML = "Strong";
+      document.getElementById("passwordStatus").style.color = "green";
+
+  }else if(mediumRegex.test(password.value)){
+
+      document.getElementById("passwordStatus").innerHTML = "medium";
+      document.getElementById("passwordStatus").style.color = "orange";
+     
+
+  }else if(password.value != ""){
+
+      document.getElementById("passwordStatus").innerHTML = "weak";
+      document.getElementById("passwordStatus").style.color = "red";
+    
+
+  }else{
+      document.getElementById("passwordStatus").innerHTML = " * password is mandatory";
+      document.getElementById("passwordStatus").style.color = "red";
+      return ("Password is mandatory");
+  }
+
+} 
+
+ // CONFIRM PASSWORD VALIDATION
+ ///  PASSWORD VALIDATION
+const ConfirmPassword =()=>{
+  var Cpassword = document.getElementById("confirmpassword");  
+
+  if(Cpassword.value == password.value)
+  {
+      document.getElementById("confirmPassword").innerHTML = "matched";
+      document.getElementById("confirmPassword").style.color = "green";
+
+  }else if(Cpassword.value != ""){
+
+      document.getElementById("confirmPassword").innerHTML = "not matched";
+      document.getElementById("confirmPassword").style.color = "red";
+      return (" Password not matched");
+
+
+  }else{
+      document.getElementById("confirmPassword").innerHTML = " * confirm password is mandatory";
+      document.getElementById("confirmPassword").style.color = "red";
+      return ("Confirm password is mandatory");
+
+  }
+
+} 
+///  EMAIL VALIDATION
+const emailValidation =()=>{
+  var email = document.getElementById("email");  
+  const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if(emailRegexp.test(email.value))
+  {
+      document.getElementById("emailStatus").innerHTML = "valid";
+      document.getElementById("emailStatus").style.color = "green";
+    //  return ();
+
+  }else if(email.value !=""){
+
+      document.getElementById("emailStatus").innerHTML = "invalid";
+      document.getElementById("emailStatus").style.color = "red";
+      return ("Invalid email");
+
+  }else{
+
+      document.getElementById("emailStatus").innerHTML = "* email is mandatory";
+      document.getElementById("emailStatus").style.color = "red";
+      return ("Email is mandatory");
+
+  }
+}  
+
+///  FULL NAME VALIDATON
+const fullnameValidation =()=>{
+  var fullname = document.getElementById("fullname");  
+  var nameRegex = /^[a-zA-Z\-]+$/;
+  if(nameRegex.test(fullname.value))
+  {
+       document.getElementById("fullnameStatus").innerHTML = "valid";
+       document.getElementById("fullnameStatus").style.color = "green";
+     
+  }else if(fullname.value !=""){
+
+       document.getElementById("fullnameStatus").innerHTML = "invalid";
+       document.getElementById("fullnameStatus").style.color = "red";
+       return ("Invalid fullname");
+
+  }else{
+
+      document.getElementById("fullnameStatus").innerHTML = "* fullname  is mandatory";
+      document.getElementById("fullnameStatus").style.color = "red";
+      return ("Fullname  is mandatory");
+  }
+}  
+
+// VALIDATING CAPTCHA
+const validateCaptcha = ()=>{
+  var inputCaptcha = document.getElementById("inputCaptcha");  
+  var Captcha = document.getElementById("captcha").innerHTML; 
+
+  if(inputCaptcha.value == Captcha){
+   // return("please insert captcha");
+   document.getElementById("captchaReq").style.color = "green";
+   document.getElementById("captchaReq").innerHTML = "* captcha  matched";
+   return("Captcha matched");
+  }else if( inputCaptcha.value !="" ){
+    document.getElementById("captchaReq").style.color = "red";
+    document.getElementById("captchaReq").innerHTML = "* captcha  not matched";
+    return ("Captcha not matched");
+
+  }
+  else{
+    document.getElementById("captchaReq").style.color = "red";
+    document.getElementById("captchaReq").innerHTML = "* captcha  is mandatory";
+    return ("Captcha  is mandatory");
+  }
+}
+
+function findPincodeData(){
+    var inputPincode= document.getElementById("inputPincode");  
+  
+    // FETCHING PINCODE DATA
+   // let datas = inputPincode.value;
+   if(inputPincode.value ==""){
+    document.getElementById("pincodeReq").innerHTML = "* pincode  is mandatory";
+    document.getElementById("pincodeReq").style.color = "red";
+   }else{
+    document.getElementById("pincodeReq").innerHTML = "";
+    $(document).ready(function(){
+      $("#spinner").show();
+      $("#PRESS").hide();
+      $.ajax({
+      
+              type: "POST",
+              url: "/pincode/"+inputPincode.value ,
+              data: "",// $("#pincodeForm").serialize() ,// form.serialize(), // serializes the form's elements.
+              'success': function(data)
+              {  
+                   show();
+                    $("#spinner").hide();
+                    $("#PRESS").show();
+                   // clearForm();
+                     setAddress(data);  
+                     disable(); 
+                     $("#register").show();
+    
+             },
+              'error':function(error){
+                $("#spinner").hide();
+                $("#PRESS").show();
+                  hide();
+
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'INVALID PINCODE',
+                            text: 'Please try with another  .',
+                            
+                          })
+
+                        //  clearForm();
+             }      
+        });
+    })
+  }
+
+}
+
+
+// VALIDATING PINCODE
+const validatePincode = ()=>{
+  var inputPincode= document.getElementById("inputPincode");  
+  if(inputPincode.value ==""){
+    document.getElementById("pincodeReq").innerHTML = "* pincode  is mandatory";
+    document.getElementById("pincodeReq").style.color = "red";
+    return("Pincode is mandatory");
+  }else{
+    document.getElementById("pincodeReq").innerHTML = "";
+    return("pincode");
+    
+  }
+}
+
+//ON LOADING 
+$(document).ready(function(){
+  generatingCaptcha();
+
+     $("#refresh").click(function(){
+       generatingCaptcha();
+     });
+
+     $("#register").hide();
+ 
+     hide();
+    
+
+})
+// AJAX POST DATA
+
+function Register(){
+ 
+$(document).ready(function(){
+  
+    let usernameErr    =    fullnameValidation();
+    let useremailErr   =    emailValidation();
+    let passwordErr    =    passwordStrength();
+    let ConpasswordErr =    ConfirmPassword();
+    let captchaErr     =    validateCaptcha();
+    let pincodeErr     =    validatePincode();
+    
+    //alert(pincodeErr)
+    $("#usernameRequired").html(usernameErr );
+    $("#useremailRequired").html( useremailErr); 
+    $("#passwordRequired").html(passwordErr);
+    $("#confirmpasswordRequired").html(ConpasswordErr);
+    $("#ErrCaptcha").html(captchaErr);
+    $("#pincodeErr").html(pincodeErr);
+
+    if((!usernameErr && !useremailErr) && (!passwordErr && !ConpasswordErr)){  
+       
+        if(captchaErr == 'Captcha matched' && pincodeErr == 'pincode' ){
+          timer();
+          enable();
+          var form = $("#signUpForm").serialize();
+          generatingCaptcha();
+          $.ajax({
+              type: "POST",
+              url: "/postSign-up",
+              data:     form,// form.serialize(), // serializes the form's elements.
+              'success': function(data)
+              {   
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'THANKS',
+                            text: 'Your Registration done successfully!',
+                            footer: '<h6><a href="/sign-in">PLEASE SIGN_IN .</a></h6>'
+                          })
+                  disable();
+                  hide();
+                  hideStatus();
+                  ("#register").hide();
+                  clearForm();
+
+             },
+              'error':function(error){
+                      
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'Email already exist !',
+                            text: 'Please try with another email .',
+                          })
+                         disable();
+              }      
+           });
+        }
+     }
+     
+});
+
+
+//});
+
+}
+
+                    function timer(){
+                     let timerInterval
+                            Swal.fire({
+                              title: 'Processing please wait !',
+                              html: 'I will close in <b></b> milliseconds.',
+                              timer: 20000,
+                              timerProgressBar: true,
+                              didOpen: () => {
+                                Swal.showLoading()
+                                timerInterval = setInterval(() => {
+                                  const content = Swal.getContent()
+                                  if (content) {
+                                    const b = content.querySelector('b')
+                                    if (b) {
+                                      b.textContent = Swal.getTimerLeft()
+                                    }
+                                  }
+                                }, 100)
+                              },
+                              willClose: () => {
+                                clearInterval(timerInterval)
+                              }
+                            }).then((result) => {
+                              /* Read more about handling dismissals below */
+                              if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                              }
+                            })
+                        }
+
+
+// HIDE
+function hide(){
+   // SPINNER
+   $("#spinner").hide();
+
+    // ADDRESS HIDING
+    $("#inputblock").hide();
+    $("#inputdistrict").hide();
+    $("#inputstate").hide();
+    $("#inputcountry").hide();
+
+    // LABEL HIDING
+
+    $("#labelblock").hide();
+    $("#labeldistrict").hide();
+    $("#labelstate").hide();
+    $("#labelcountry").hide();
+
+    // ERRORS
+    $("#usernameRequired").hide();
+    $("#useremailRequired").hide(); 
+    $("#passwordRequired").hide();
+    $("#confirmpasswordRequired").hide();
+    $("#ErrCaptcha").hide();
+    $("#pincodeErr").hide();
+    
+    
+
+}
+
+function hideStatus(){
+    $("#fullnameStatus").hide();
+    $("#passwordStatus").hide();
+    $("#emailStatus").hide();
+    $("#confirmPassword").hide();
+    $("#pincodeReq").hide();
+    $("#captchaReq").hide();
+}
+
+// SHOW
+function show(){
+
+            // INPUT SHOWING
+            $("#inputblock").show();
+            $("#inputdistrict").show();
+            $("#inputstate").show();
+            $("#inputcountry").show();
+
+            // LABEL SHOWING
+
+            $("#labelblock").show();
+            $("#labeldistrict").show();
+            $("#labelstate").show();
+            $("#labelcountry").show();
+}
+
+// DISABLE
+function disable(){
+
+  $("#inputblock").prop('disabled', true);
+  $("#inputstate").prop('disabled', true);
+  $("#inputdistrict").prop('disabled', true);
+  $("#inputcountry").prop('disabled', true);
+
+}
+
+// ENABLE
+function enable(){
+  $("#inputblock").prop('disabled', false);
+  $("#inputstate").prop('disabled', false);
+  $("#inputdistrict").prop('disabled', false);
+  $("#inputcountry").prop('disabled', false);
+}
+
+// SETTING ADDRESS INPUT FIELD
+function setAddress(data){
+  // disable();
+  document.getElementById("inputblock").value = data.Block;
+  document.getElementById("inputdistrict").value = data.District;
+  document.getElementById("inputstate").value = data.State;
+  document.getElementById("inputcountry").value = data.Country;
+}
+
+  // CLEARING FORM DATA 
+      function clearForm(){
+
+              $("#signUpForm").trigger('reset');
+              $("#usernameRequired").html("");
+              $("#useremailRequired").html("");
+              $("#passwordRequired").html("");
+              $("#confirmpasswordRequired").html("");
+              $("#notmatch").html("");
+              $("#ErrCaptcha").html("");
+              $("#pincodeErr").html("");
+       }
+     
+  // GENERATING CAPTCHA
+    function generatingCaptcha(){
+      let alphabets = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+      let status = document.getElementById('status');
+      // we'll use this status dom element to display the response while verifing the code
+
+      let captcha;
+
+      let first = alphabets[Math.floor(Math.random() * alphabets.length)];
+      let second = Math.floor(Math.random() * 10);
+      let third = Math.floor(Math.random() * 10);
+      let fourth = alphabets[Math.floor(Math.random() * alphabets.length)];
+      let fifth = alphabets[Math.floor(Math.random() * alphabets.length)];
+      let sixth = Math.floor(Math.random() * 10);
+      captcha = first.toString()+second.toString()+third.toString()+fourth.toString()+fifth.toString()+sixth.toString();
+      $('#captcha').html( captcha) ;
+    }
+   </script>
+
+   <!--###### :#F5EFCF  JAVASCRIPT CODE  END     ######-->
+  
+    </head>
+
+     <style>
+      #mainContainer{
+          margin-top: -10px;
+          padding:50px;
+          align-items: center;
+          background-color:white ✅ ;
+          color: black;
+         /*--> max-width: 800px;*/
+         
+         /* float: left;*/
+      }
+      #refresh:hover{
+        cursor: pointer;
+        text-decoration:underline;
+      }
+     </style>
+    <body>
+     
+      <h6 style="text-align: center;color: orange;font-weight: bold;" class="h1">
+        FRC
+       </h6>
+       <h6 style="text-align: center;font-weight: bold;font-size: larger;text-decoration: underline;">FRESHER RESUME CREATER</h6>
+      <div class="container" id="mainContainer">
+        
+          <div class="row">
+
+            <div class="col">
+              <img src="Images/pic10.png" alt="NO IMAGES" style="width:500px;">
+              
+               <!--<div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-5">
+                  </div>
+                  
+                </div>-->
+             
+            </div>
+
+            <div class="col">
+              <h1>Sign-up |</h1>
+         
+              <div style="font-size:12px;text-align: justify;" class="alert alert-danger" role="alert" >
+                <p  style="color:red" id="usernameRequired"></p>
+                <p  style="color:red" id="useremailRequired"></p>
+                <p  style="color:red" id="passwordRequired"></p>
+                <p  style="color:red"id="confirmpasswordRequired"></p>
+                <p  style="color:red"id="notmatch"></p>
+                <p  style="color:rgb(252, 14, 14);" id="ErrCaptcha"></p>
+                <p  style="color:rgb(252, 14, 14);" id="pincodeErr"></p>
+                                
+              </div>
+            
+              
+          <form id="signUpForm" class="row g-3 needs-validation" action="#"  method ="post" >
+                
+                  <!--FULL NAME-->
+                  <div class="col-md-6">
+                    <label for="validationCustom01" class="form-label">Full name</label>
+                    <input type="text" autocomplete="off" class="form-control" id="fullname" name="username" value="<%- username %>" placeholder="enter full name" onkeyup="fullnameValidation()" >
+                    <p style="font-size: small;" id="fullnameStatus"></p>
+                  </div>
+                
+                  <!--EMAIL -->
+                  <div class="col-md-6">
+                    <label for="validationCustom02" class="form-label">Email </label>
+                    <input type="text" autocomplete="off" class="form-control" id="email" name="useremail" value="<%- useremail %>" placeholder="enter email" onkeyup="emailValidation()"  >
+                  <p style="font-size: small;" id="emailStatus"></p>
+                  </div>
+                
+                   <!--PASSWORD-->
+                  <div class="col-md-6">
+                    <label for="validationCustom03" class="form-label">Password</label>
+                    <input type="password" autocomplete="off" class="form-control" id="password" name="userpassword" value="<%- userpassword %>" onkeyup="passwordStrength()" placeholder="create password" >
+                    <p style="font-size: small;" id="passwordStatus"></p>
+                  </div>
+      
+                  <!--CONFIRM PASSWORD-->
+                  <div class="col-md-6">
+                      <label for="validationCustom03" class="form-label">Confirm Password</label>
+                      <input type="password" autocomplete="off" class="form-control" id="confirmpassword" value="<%- confirmpassword %>" name="confirmpassword" placeholder="confirm password" onkeyup="ConfirmPassword()">
+                      <p style="font-size: small;" id="confirmPassword"></p>
+                  </div>
+                  
+                  <!--Captcha-->
+                  <div class="col-md-5">
+                     <div class="row">
+                       <div class="col">
+                        <label for="validationCustom03" class="form-label">Captcha:    </label>
+                       </div>
+                       <div class="col">
+                        <p style="font-weight: bold;font-size: small; color:green" id="captcha"></p>
+                       </div>
+                      </div>
+                  </div>
+                  
+                  <!--REFRESH BUTTON-->
+                  <div class="col-md-7">
+                        <div class="row">
+                          <div class="col-8">
+                            <input type="text" autocomplete="off" class="form-control" id="inputCaptcha"  name="inputCaptcha" placeholder="enter captcha" value="" onkeyup="validateCaptcha()" >
+                            <p style="font-size: small;" id="captchaReq"></p>
+                           </div>
+    
+                            <div class="col-2">
+                              <button id="refresh" class="btn btn-secondary"  type="button" >refresh</button> 
+                          </div>
+                        </div>
+                    </div>
+
+                  <!--SEARCH PINCODE-->
+                  <div class="col-md-8">
+                     <div class="row">
+                       <div class="col-3"> 
+                        <label for="validationCustom01" class="form-label">Pincode</label>
+                       </div>
+                        <div class="col-6">
+                        <input type="text" autocomplete="off" class="form-control" id="inputPincode" name="pincode" placeholder="enter pincode" value="" >
+                        </div>
+                        <div class="col-3">
+                           <button id="PRESS" class="btn btn-secondary"  type="button" onclick="findPincodeData()">search</button> 
+                       </div>
+                     </div>
+                       <p style="font-size: small;" id="pincodeReq"></p>
+                       <img id="spinner" style="width:80px ;height: 80px;" src="Images/VeryfySpinner.gif">
+                  </div>
+
+                  <!--BLOCK-->
+                  <div class="col-md-6">
+                    <label id="labelblock" for="validationCustom01" class="form-label">Block</label>
+                    <input type="text" autocomplete="off" class="form-control"   id="inputblock" name="block" value="" >
+                  </div>
+                  
+                  <!--DISTRICT-->
+                  <div class="col-md-6">
+                    <label id="labeldistrict" for="validationCustom02" class="form-label">District </label>
+                    <input type="text"  autocomplete="off" class="form-control" id="inputdistrict" name="district" value="" >
+                  </div>
+                  
+                  <!--STATE-->
+                  <div class="col-md-6">
+                    <label id="labelstate" for="validationCustom01" class="form-label">State </label>
+                    <input type="text"  autocomplete="off" class="form-control"  id="inputstate" name="state" value="">
+                  </div>
+               
+                  <!--COUNTRY-->
+                  <div class="col-md-6">
+                    <label id="labelcountry" for="validationCustom02" class="form-label">Country </label>
+                    <input type="text" autocomplete="off" class="form-control" id="inputcountry" name="country" value="" >
+                  </div>
+
+                  <button type="button"   class="btn btn-warning" id="register" onclick="Register()" >Register</button>
+
+           </form>
+              
+              </div>
+               
+               
+            </div>
+            </div>
+
+          </div>
+
+     </div> 
+   
+    </body>
+</html>
+
+
+
+
+
+

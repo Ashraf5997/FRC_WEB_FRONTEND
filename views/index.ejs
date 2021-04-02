@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width:device-width, initial-scale = 1.0" >
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!--ICONS-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+        
+    <!--SWEET ALERT-->
+ <link
+ rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+ <!--JQUERY-->
+
+        <script type="text/javascript">
+             let bool = true , savebool=00,content, dataobj={};
+        
+         // CHANGE COLOR 
+         const  changeColor= (id)=>{
+
+              sessionStorage.setItem("id",id);
+              if(bool){
+               bool = false;
+               document.getElementById(id).style.color="orange" ;
+               content = document.getElementById(id).innerHTML ;
+               document.getElementById("inputfield").value = content;
+            // dataobj[useremail]="ashrafjamal5997@gmail.com";
+               dataobj[id]={};
+              
+             }else{
+                bool = true;
+                document.getElementById(id).style.color="black" ;
+             }
+         }
+         // CHANGE TEXT
+         const changeText= ()=>{
+           
+             let id = sessionStorage.getItem('id');
+             content = document.getElementById('inputfield'); 
+             document.getElementById(id).innerHTML =content.value;
+             dataobj[id]["text"]=content.value;          
+         }
+         // CHANGE BOLD
+         const changeWeight= (weight)=>{
+            let id = sessionStorage.getItem('id');
+            document.getElementById(id).style.fontWeight=weight;
+            if(weight == '900'){ dataobj[id]["fontWeight"]="Times-Bold";}
+            else{ dataobj[id]["fontWeight"]="Times-Roman";}
+           
+           /*
+              dataobj.id={};
+              dataobj.id.fontWeight=content.value;
+
+            */
+         }
+
+         // CUSTOM CHANGE COLOR
+         const changeCustomColor = (color)=>{
+            let id = sessionStorage.getItem('id');
+            document.getElementById(id).style.color=color ;
+            dataobj[id]["color"]=color;
+         }
+
+         // CUSTOM CHANGE SIZE
+         const changeSize = (size)=>{
+            let id = sessionStorage.getItem('id');
+            let fontSize = size+'px';
+            document.getElementById(id).style.fontSize=fontSize ;
+            dataobj[id]["fontSize"]=size;
+         }
+
+          // CUSTOM CHANGE Position
+        /*  const changePosition= (attr)=>{
+
+                let id = sessionStorage.getItem('id');
+                let px = sessionStorage.getItem('px');
+
+              if(attr == 'Left'){
+                document.getElementById(id).style.marginRight=px ;
+                dataobj[id]["marginRight"]=px;
+              }
+              else if( attr =='Right'){
+                document.getElementById(id).style.marginLeft=px ;
+                dataobj[id]["marginLeft"]=px;
+              }
+              else if( attr == 'Up'){
+                  let up = '-'+px
+                document.getElementById(id).style.marginTop=up;
+                dataobj[id]["marginTop"]=px;
+              }
+              else{
+                document.getElementById(id).style.marginTop=px ;
+                dataobj[id]["marginLTop"]=px;
+              }
+          
+         }*/
+
+         // CUSTOM SELECT  POSITION
+            const selectPosition = (size)=>{
+            sessionStorage.setItem("px",size);
+         }
+
+         // SAVE
+        /* const save = ()=>{
+            sessionStorage.setItem("pdfData",JSON.stringify(dataobj));
+            let d = sessionStorage.getItem("pdfData");
+            alert(d)
+            document.getElementById("pdfData").value = d;
+          //  window.location="/savePdf"+dataobj;
+         }*/
+
+
+         
+  $(document).ready(function(){
+    $("#generatePdf").hide();
+     //  e.preventDefault(e); // avoid to execute the actual submit of the form.
+    //let email = $("#inputEmail").val();
+
+   $("#save").click(function(){
+         
+          sessionStorage.setItem("pdfData",JSON.stringify(dataobj));
+            let PDF = sessionStorage.getItem("pdfData");
+            if(PDF.length > 2){
+              document.getElementById("pdfData").value = PDF;
+               $("#save").hide();
+               $("#generatePdf").show();
+            }else{
+              Swal.fire({
+                      title: 'Please change default template',
+                        showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                        }
+                  })
+            }
+        });
+    });
+
+    </script>
+     <style>
+         #shadow :hover{
+            color: darkgrey;
+            cursor: pointer;  
+         }
+
+     </style>
+    </head>
+    <Body>
+        <!--    HEADER   -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+         <!-- DISPLAYING USER DETAILS -->
+          <% if(userData != 0) { %>
+            <p>welcome : <%= userData.username %>
+                [    <%= userData.useremail %> ]
+           </p>
+            <% } %>
+           
+            
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul style="color:black;font-size:15px;" class="navbar-nav me-auto mb-2 mb-lg-0">
+             
+              </ul>
+                                                
+                <form class="d-flex">
+                  <%if(userData.userpassword == "admin@59978436513244"){%>
+                  <button class="btn btn-info" type="submit"><a style="color:white" href="/adminUser">ADMIN AREA</a></button>
+                 <%}%>
+                  <button class="btn btn-danger" type="submit"><a style="color:white" href="/logout">LOGOUT</a></button>
+                </form>
+              
+              </div>
+            </div>
+          </nav>
+       <!--  MAIN BODY
+        <%for (var result in userData){%>
+             <div style="background-color: teal;padding: 15px;margin-top: 10px;">
+             <%=result%>:<%=userData[result]%>   
+             </div> 
+       <%}%>  --><hr>
+
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h4>CREATE AND CUSTOMISE YOUR RESUME</h4>
+              <p>In very short time and download the pdf</p>
+            </div>
+            
+              <!-- DISPLAYING SUCCESS MESSAGE-->
+          <% if(Emp_message != 0) { %>
+            <div style="font-size:15px;text-align: center;" class="alert alert-danger" role="alert">
+             <%- Emp_message %>
+            </div>
+            <% } %>
+            
+          <!-- DISPLAYING ERROR MESSAGE-->
+         <% if(Error_message != 0) { %>
+            <div style="font-size:15px;text-align: center;" class="alert alert-danger" role="alert">
+             <%- Error_message %>
+            </div>
+            <% } %>
+
+          </div>
+          <div style="background-color: teal; height: 10px;"></div>
+    <div style="background-color:#F5EFCF; " class='row'>
+  <!--DEMO DIV-->
+     <div style=" height:650px;overflow: scroll; background-color:white;margin-top: 15px;padding-top: 45px; margin-left:25px;padding-left:15px;" class="col">
+        <div class="row">
+         <div class="col-5">
+          <div id="shadow"><p  onclick="changeColor('contactdetails')" id="contactdetails">CONTACT DETAILS</p></div>
+          <div id="shadow"  >
+            <p  id ="contact"  onclick="changeColor('contact')">8436513244</p>
+            <p  id ="email"  onclick="changeColor('email')">ashrafjamal5997@gmail.com</p>
+            <p  id ="district"  onclick="changeColor('district')">kishanganj</p>
+            <p  id ="pin"  onclick="changeColor('pin')">855107</p>
+            <p  id ="state"  onclick="changeColor('state')">Bihar</p>
+          </div>
+
+          <div id="shadow"><p  onclick="changeColor('skilldetails')" id="skilldetails">SKILL DETAILS</p></div>
+          <div id="shadow"  >
+         <!---  <p  id ="skills"  onclick="changeColor('skills')">C , C++ , JAVA, PYTHON ,JAVASCRIPT,NODEjs ,ANGULAR 8 ,HTML5 , CSS 3</p>-->
+            <p  id ="c"  onclick="changeColor('c')">C</p>
+            <p  id ="java"  onclick="changeColor('java')">JAVA</p>
+          
+            <p  id ="javascript"  onclick="changeColor('javascript')">JAVASCRIPT</p>
+            <p  id ="nodejs"  onclick="changeColor('nodejs')">NODE JS</p>
+            <p  id ="angular"  onclick="changeColor('angular')">ANGULAR JS</p>
+          
+            <p  id ="reactjs"  onclick="changeColor('reactjs')">REACT JS</p>
+            <p  id ="reactnative"  onclick="changeColor('reactnative')">REACT NATIVE</p>
+          </div>
+          
+         </div>
+         <div class="col-7">
+            <div style="text-align: center;" id="shadow"><p id ="fullname"  onclick="changeColor('fullname')">ASHRAF JAMAL</p></div>
+
+            <div id="shadow"><p id ="carrierobjective"  onclick="changeColor('carrierobjective')">I want to become a fullstack developer d jhghf fdfff dgdgdhghgfdghd hgd hggf dfgdf dgfh fhgdfgf fgfjfgfhgf jfjhgf fgfjf g dhfg</p></div>
+
+             <div id="shadow"><p  onclick="changeColor('educationdetails')" id="educationdetails">EDUCATION DETAILS</p></div>
+            <div id="shadow"  >
+
+              <p  id ="classTN"  onclick="changeColor('classTN')">CLASS : 10th , SCHOOL: Araria Public School , Bihar , YEAR : 2013 , PERCENTAGE: 76%</p>
+              <p  id ="classTW"  onclick="changeColor('classTW')">CLASS : 12th , SCHOOL: Gyandeep School , haryana ,PERCENTAGE: 46%</p>
+              <p  id ="college"  onclick="changeColor('college')">DEGREE : B.Tech , COLLEGE : Camellia Institute Of Technology And Management , YEAR : 2020 , YGPA :8.4 </p>
+           
+            </div>
+           
+            <div id="shadow"><p  onclick="changeColor('interest')" id="interest">INTEREST DETAILS</p></div>
+            <div id="shadow"  >
+              <p  id ="interestP"  onclick="changeColor('interestP')">Playing Cricket</p>
+              <p  id ="interestC"  onclick="changeColor('interestC')">Cricket Commentary</p>
+              <p  id ="interestS"  onclick="changeColor('interestS')">Listening and Singing Music </p>
+           
+            </div>
+
+        </div>
+        </div>
+
+     </div>
+  <!--ACTION DIV-->
+       <div class="col">
+        <p style="text-align: center;background-color: teal;color:white;">ACTION AREA</p>
+        <!-- BUTTONS-->
+      
+       <!--SELECT POSITION-->
+      <!---- <div class="row">
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="bold" onclick="selectPosition('10px')">
+                     10px
+               </div>
+               <div style="padding-left:30px;" class="form-check">
+                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="normal" onclick="selectPosition('20px')" >
+                     20px
+               </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="bold" onclick="selectPosition('30px')" >
+                     30px
+               </div>
+               <div style="padding-left:30px;" class="form-check">
+                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="normal" checked onclick="selectPosition('40px') " >
+                     40px
+               </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="bold" onclick="selectPosition('50px')" >
+                     50px
+               </div>
+               <div style="padding-left:30px;" class="form-check">
+                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="normal" onclick="selectPosition('60px')" >
+                     60px
+               </div>
+            </div>
+       </div>-->
+
+       <!---- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-secondary" onclick="changePosition('Left')">Left</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changePosition('Right')">Right</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changePosition('Up')">Up</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changePosition('Down')">Down</button>
+            </div>
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+            <p style="font-size: 12px;">use this button to move and place it as your desired position</p>
+            </div>
+       </div>-->
+
+       <hr>
+       <p style="text-decoration: underline;">Select  colors</p>
+       <p style="margin-top: -15px;font-size: 12px;">click on button and design your template</p>
+        <button type="button" class="btn btn-primary" onclick="changeCustomColor('blue')">BLUE</button>
+        <button type="button" class="btn btn-secondary" onclick="changeCustomColor('grey')">GREY</button>
+        <button type="button" class="btn btn-success" onclick="changeCustomColor('green')">GREEN</button>
+        <button type="button" class="btn btn-danger" onclick="changeCustomColor('red')">RED</button>
+        <button type="button" class="btn btn-warning" onclick="changeCustomColor('yellow')">YELLOW</button>
+        <button type="button" class="btn btn-info" onclick="changeCustomColor('skyblue')">SKY</button>
+        <button type="button" class="btn btn-light" onclick="changeCustomColor('white')">WHITE</button>
+        <button type="button" class="btn btn-dark" onclick="changeCustomColor('black')">DARK</button>
+        <hr>
+       <p style="text-decoration: underline;">Select size</p>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+                <p style="font-size: 12px;">increase or decrease the  size of your  content </p>
+            </div>
+
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-secondary" onclick="changeSize('8')" >very small</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changeSize('10')">small</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changeSize('12')">large</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="changeSize('15')">very large</button>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bold" onclick="changeWeight('900')">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Text:bold
+                </label>
+              </div>
+              <div style="padding-left:30px;" class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="normal" checked onClick="changeWeight('300')" >
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Text:normal
+                </label>
+              </div>
+           
+       </div>
+    <!--INPUT AAREAS--->
+       <div class="mb-3">
+       <!--- <label for="exampleFormControlInput1" class="form-label">Title Area </label>
+        <input type="text"  class="form-control"  placeholder="Skills" id="text" value=""> -->
+     
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Description Area</label>
+        <textarea type="text" class="form-control"  rows="3" id="inputfield" value=""  onkeyup="changeText()"></textarea>
+      <button type="button" id="save"  class="btn btn-secondary"> Save </button>
+
+      </div>
+    
+      
+      <form method="post" action="/home/generatePdf">
+        <label>PDF OBJECT CREATING</label>
+        <textarea type="text"  class="form-control" name="pdfdata"  rows="3" id="pdfData" value=""></textarea>
+        <button type="submit" id="generatePdf"   class="btn btn-success" >GENERATE PDF</button>
+      </form> 
+
+    </div>
+    </div>
+
+    </Body>    
+</html>

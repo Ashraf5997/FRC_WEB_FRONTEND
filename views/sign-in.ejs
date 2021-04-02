@@ -1,0 +1,171 @@
+
+
+<!--HEDER  START-->
+<%- include('header') %>
+<!--HEDER  END-->
+<html lang="en">
+    <head>
+      <title>SIGN_IN</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+
+
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--SWEET ALERT-->
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <!--JQUERY-->
+
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+       
+<script>
+
+   
+
+  $(document).ready(function(){
+    $("#signInForm").submit(function(e) {
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    let email = $("#inputEmail").val();
+    let password = $("#inputpassword").val();
+
+    if(email && password){
+        $.ajax({
+
+              type: "POST",
+              url: "/home",
+              data: form.serialize(), // serializes the form's elements.
+
+              'success': function(data)
+              {  
+                     window.location="/index";     
+              },
+
+              'error':function(error){
+                  Swal.fire({
+                      title: 'INVALID EMAIL OR PASSWORD ',
+                        showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                        }
+                  })
+              }
+            });
+    }
+    else{
+      if(!email){   $("#userEmailRequired").html("Please provide email" ); }
+      if(!password){  $("#userPasswordRequired").html("Please provide password" ) }
+    }
+      });
+     
+  });
+
+</script>
+    </head>
+    <script>
+    </script>
+
+     <style>
+      #mainContainer{
+          margin-top: 50px;
+          padding:30px;
+          padding-top:30px;
+          align-items: center;
+          background-color:#F5EFCF;
+          color: black;
+          max-width: 700px;
+         /* float: left;*/
+      }
+     </style>
+    <body>
+   
+     
+      <div class="container" id="mainContainer">
+          <h2> Sign-in |</h2>
+    
+          
+          <div style="font-size:12px;text-align: justify;" class="alert alert-danger" role="alert" >
+             <p  style="color:red" id="userEmailRequired"></p>
+             <p  style="color:red" id="userPasswordRequired"></p>
+          </div>
+          <!-- DISPLAYING SUCCESS MESSAGE-->
+          <% if(message != 0) { %>
+            <div style="font-size:15px;text-align: center;" class="alert alert-success" role="alert">
+             <%- message %>
+         
+            </div>
+            <% } %>
+            
+          <!-- DISPLAYING ERROR MESSAGE-->
+         <% if(Error_message != 0) { %>
+            <div style="font-size:15px;text-align: center;" class="alert alert-danger" role="alert">
+                <%- Error_message %>
+            </div>
+            <% } %>
+           <br>
+           <p id="#div"></p>
+            <form  id="signInForm" action="#" method="post">
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="enter email">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="text" autocomplete="off" class="form-control" id="inputpassword" name="inputpassword">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Click</button>
+        </form>
+      </div>
+ 
+
+      <!--MODAL-->
+     <!--- <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header" style="  color: white;background-color: rgb(238, 45, 20);">
+              <h4 class="modal-title"> DELETE USER DATA </h4>
+  
+              <button style="color:white" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p>ARE YOU SURE ?</p>
+              <p>Data will remove from Database</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">yes</button>
+            </div>
+          </div>
+        </div>
+      </div>-->
+       <!-- Modal HTML -->
+    
+    </body>
+</html>
+
+
+
+
+
+<!--FOOTER  START-->
+<%- include('footer') %>
+
+<!--FOOTER  END-->
